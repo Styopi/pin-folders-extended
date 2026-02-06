@@ -1,0 +1,251 @@
+{
+	"name": "pin-folders-extended",
+	"displayName": "Pin Folders Extended",
+	"description": "Enhanced version of Pin Folders with automatic refresh, drag & drop move, and improved UX.",
+	"license": "Apache-2.0",
+	"version": "1.0.0",
+	"publisher": "OneDesign",
+	"repository": {
+		"url": "https://github.com/Styopi/pin-folders-extended.git"
+	},
+	"engines": {
+		"vscode": "^1.88.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"Pin",
+		"Folders",
+		"Pinned",
+		"Sidebar",
+		"Quick Access",
+		"Extended"
+	],
+	"activationEvents": [],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "pinned-folders.refreshEntry",
+				"title": "Refresh Pinned Folders",
+				"icon": "$(sync)",
+				"category": "Pinned Folders"
+			},
+			{
+				"command": "pinned-folders.addEntry",
+				"title": "Bookmark/Add File/Directory to Pinned Folders",
+				"icon": "$(plus)",
+				"category": "Pinned Folders"
+			},
+			{
+				"command": "pinned-folders.expandGlobal",
+				"title": "Expand All",
+				"category": "Pinned Folders",
+				"icon": "$(diff-added)"
+			},
+			{
+				"command": "pinned-folders.collapseGlobal",
+				"title": "Collapse All",
+				"category": "Pinned Folders",
+				"icon": "$(diff-removed)"
+			},
+			{
+				"command": "pinned-folders.addEntryFromExplorer",
+				"title": "Add to Pinned/Bookmarked Folders",
+				"category": "Pinned Folders"
+			},
+			{
+				"command": "pinned-folders.renameEntry",
+				"title": "Rename Bookmark/Entry in Pinned Folders",
+				"category": "Pinned Folders",
+				"icon": "$(pencil)"
+			},
+			{
+				"command": "pinned-folders.removeEntry",
+				"title": "Remove Bookmark/Entry from Pinned Folders",
+				"category": "Pinned Folders",
+				"icon": "$(trash)"
+			},
+			{
+				"command": "pinned-folders.openInNewWindow",
+				"title": "Open Pinned Folder in Vscode Desktop",
+				"category": "Pinned Folders",
+				"icon": "$(file-code)"
+			},
+			{
+				"command": "pinned-folders.expandFolder",
+				"title": "Expand Project",
+				"category": "Pinned Folders",
+				"icon": "$(diff-added)"
+			},
+			{
+				"command": "pinned-folders.collapseFolder",
+				"title": "Collapse Project",
+				"category": "Pinned Folders",
+				"icon": "$(diff-removed)"
+			},
+			{
+				"command": "pinned-folders.createEntry",
+				"title": "Create File/Folder"
+			},
+			{
+				"command": "pinned-folders.renameFile",
+				"title": "Rename File/Folder"
+			},
+			{
+				"command": "pinned-folders.copyFile",
+				"title": "Copy File/Folder"
+			},
+			{
+				"command": "pinned-folders.moveFile",
+				"title": "Move File/Folder"
+			},
+			{
+				"command": "pinned-folders.deleteFile",
+				"title": "Delete File/Folder"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "pinned-folders-container",
+					"title": "Pinned Folders",
+					"icon": "$(pinned)"
+				}
+			]
+		},
+		"views": {
+			"pinned-folders-container": [
+				{
+					"id": "pinned-folders-search",
+					"name": "Search",
+					"icon": "$(search)",
+					"type": "webview"
+				},
+				{
+					"id": "pinned-folders-search-results",
+					"name": "Search Results",
+					"icon": "$(search)",
+					"when": "pinnedFolders:hasSearchResults",
+					"type": "tree"
+				},
+				{
+					"id": "pinned-folders",
+					"name": "Pinned Folders",
+					"icon": "$(pinned)",
+					"contextualTitle": "Pinned Folders",
+					"when": "!pinnedFolders:hasSearchResults"
+				}
+			]
+		},
+		"menus": {
+			"view/title": [
+				{
+					"command": "pinned-folders.refreshEntry",
+					"when": "view == pinned-folders",
+					"group": "navigation"
+				},
+				{
+					"command": "pinned-folders.addEntry",
+					"when": "view == pinned-folders",
+					"group": "navigation"
+				},
+				{
+					"command": "pinned-folders.collapseGlobal",
+					"when": "view == pinned-folders",
+					"group": "navigation@2"
+				},
+				{
+					"command": "pinned-folders.expandGlobal",
+					"when": "view == pinned-folders",
+					"group": "navigation@1"
+				}
+			],
+			"explorer/context": [
+				{
+					"when": "resourceScheme==file",
+					"command": "pinned-folders.addEntryFromExplorer",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "pinned-folders.removeEntry",
+					"when": "view == pinned-folders && viewItem == pinnedFolder",
+					"group": "inline"
+				},
+				{
+					"command": "pinned-folders.renameEntry",
+					"when": "view == pinned-folders && viewItem == pinnedFolder",
+					"group": "inline"
+				},
+				{
+					"command": "pinned-folders.openInNewWindow",
+					"when": "view == pinned-folders && viewItem == pinnedFolder",
+					"group": "inline"
+				},
+				{
+					"command": "pinned-folders.collapseFolder",
+					"when": "view == pinned-folders && viewItem == pinnedFolder",
+					"group": "inline@2"
+				},
+				{
+					"command": "pinned-folders.expandFolder",
+					"when": "view == pinned-folders && viewItem == pinnedFolder",
+					"group": "inline@1"
+				},
+				{
+					"command": "pinned-folders.createEntry",
+					"when": "view == pinned-folders || view == pinned-folders-search-results",
+					"group": "navigation"
+				},
+				{
+					"command": "pinned-folders.renameFile",
+					"when": "view == pinned-folders || view == pinned-folders-search-results",
+					"group": "navigation"
+				},
+				{
+					"command": "pinned-folders.copyFile",
+					"when": "view == pinned-folders || view == pinned-folders-search-results",
+					"group": "navigation"
+				},
+				{
+					"command": "pinned-folders.moveFile",
+					"when": "view == pinned-folders || view == pinned-folders-search-results",
+					"group": "navigation"
+				},
+				{
+					"command": "pinned-folders.deleteFile",
+					"when": "view == pinned-folders || view == pinned-folders-search-results",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run package",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p . -w --outDir out",
+		"pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+		"lint": "eslint src --ext ts",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.88.0",
+		"@types/mocha": "^10.0.6",
+		"@types/node": "18.x",
+		"@typescript-eslint/eslint-plugin": "^7.4.0",
+		"@typescript-eslint/parser": "^7.4.0",
+		"eslint": "^8.57.0",
+		"typescript": "^5.3.3",
+		"ts-loader": "^9.5.1",
+		"webpack": "^5.94.0",
+		"webpack-cli": "^5.1.4",
+		"@vscode/test-cli": "^0.0.8",
+		"@vscode/test-electron": "^2.3.9"
+	}
+}
