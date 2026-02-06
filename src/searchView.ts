@@ -17,6 +17,10 @@ export class PinnedFoldersSearchViewProvider implements vscode.WebviewViewProvid
     ) {
         // console.log("* resolveWebviewView CALLED");
 
+        setTimeout(() => {
+            webviewView.webview.postMessage({ type: "resetState" });
+        }, 50);
+
         this._view = webviewView;
 
         webviewView.webview.options = {
@@ -52,6 +56,15 @@ export class PinnedFoldersSearchViewProvider implements vscode.WebviewViewProvid
                     const vscode = acquireVsCodeApi();
                     const input = document.getElementById('searchBox');
                     const resetBtn = document.getElementById('resetBtn');
+
+                    // Reset input
+                    window.addEventListener('message', event => {
+                        if (event.data.type === "resetState") {
+                            vscode.setState({ search: "", history: [] });
+                            input.value = "";
+                            historyDiv.innerHTML = ""; 
+                        } 
+                    });
 
                     // Restore previous value
                     const state = vscode.getState();
