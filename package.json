@@ -3,7 +3,7 @@
 	"displayName": "Pin Folders Extended",
 	"description": "Enhanced version of Pin Folders with automatic refresh, drag & drop move, and improved UX.",
 	"license": "Apache-2.0",
-	"version": "1.0.2",
+	"version": "1.0.4",
 	"publisher": "OneDesign",
 	"repository": {
 		"url": "https://github.com/Styopi/pin-folders-extended.git"
