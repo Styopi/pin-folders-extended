@@ -117,6 +117,10 @@ Therefore:
 
 This matches the behavior of the native VS Code Explorer on macOS.
 
+### Search depth
+The search view shows the direct contents of matched folders, but does not currently expand into deeper subfolders.
+Recursive search inside nested directories may be added in a future update.
+
 ---
 
 ## License
