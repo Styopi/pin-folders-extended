@@ -136,23 +136,6 @@ export function activate(context: vscode.ExtensionContext) {
 		alwaysTreeItemProvider.refresh();
 	});
 
-	// Register drag and drop handler
-	vscode.window.createTreeView(pinFoldersSub, {
-		treeDataProvider: alwaysTreeItemProvider,
-		dragAndDropController: {
-			dropMimeTypes: ['application/vnd.code.tree.pinned-folders'],
-			dragMimeTypes: ['application/vnd.code.tree.pinned-folders'],
-			handleDrag: (source: readonly vscode.TreeItem[], dataTransfer: vscode.DataTransfer, token: vscode.CancellationToken) => {
-				dataTransfer.set('application/vnd.code.tree.pinned-folders', new vscode.DataTransferItem(source));
-			},
-			handleDrop: async (target: vscode.TreeItem | undefined, dataTransfer: vscode.DataTransfer, token: vscode.CancellationToken) => {
-				const transferItem = await dataTransfer.get('application/vnd.code.tree.pinned-folders');
-				const sources = transferItem?.value as vscode.TreeItem[];
-				alwaysTreeItemProvider.handleDrag(sources as PinTreeItem[], target as PinTreeItem);
-			}
-		}
-	});
-
 	// --- Create File / Folder ---
 	const createEntryCommand = vscode.commands.registerCommand("pinned-folders.createEntry", async (item: PinTreeItem) => {
 		const name = await vscode.window.showInputBox({
@@ -335,42 +318,19 @@ export function activate(context: vscode.ExtensionContext) {
 		async (source, target) => {
 			await vscode.workspace.fs.rename(source, target, { overwrite: false });
 			vscode.commands.executeCommand("pinned-folders.refreshEntry");
-			alwaysTreeItemProvider.refreshSearchResults();
 		},
 		async (source, target) => {
 			const data = await vscode.workspace.fs.readFile(source);
 			await vscode.workspace.fs.writeFile(target, data);
 			vscode.commands.executeCommand("pinned-folders.refreshEntry");
-			alwaysTreeItemProvider.refreshSearchResults();
-		}
+		},
+		alwaysTreeItemProvider
 	);
 
 	vscode.window.createTreeView("pinned-folders", {
 		treeDataProvider: alwaysTreeItemProvider,
 		dragAndDropController: pinnedDnd
 	});
-
-
-	// Search results
-	const searchDnd = new PinnedDragAndDropController(
-		async (source, target) => {
-			await vscode.workspace.fs.rename(source, target, { overwrite: false });
-			vscode.commands.executeCommand("pinned-folders.refreshEntry");
-			alwaysTreeItemProvider.refreshSearchResults();
-		},
-		async (source, target) => {
-			const data = await vscode.workspace.fs.readFile(source);
-			await vscode.workspace.fs.writeFile(target, data);
-			vscode.commands.executeCommand("pinned-folders.refreshEntry");
-			alwaysTreeItemProvider.refreshSearchResults();
-		}
-	);
-
-	vscode.window.createTreeView("pinned-folders-search-results", {
-		treeDataProvider: searchResultsProvider,
-		dragAndDropController: searchDnd
-	});
-
 
 	// --- Search File/Folder --- 
 	vscode.window.createTreeView("pinned-folders-search-results", {
