@@ -51,6 +51,11 @@
 				"icon": "$(trash)"
 			},
 			{
+				"command": "pinned-folders.addEntryFromExplorer",
+				"title": "Add to Pinned/Bookmarked Folders",
+				"category": "Pinned Folders"
+			},
+			{
 				"command": "pinned-folders.openInNewWindow",
 				"title": "Open Pinned Folder in Vscode Desktop",
 				"category": "Pinned Folders",
