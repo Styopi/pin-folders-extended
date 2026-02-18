@@ -21,7 +21,7 @@ export class PinnedDragAndDropController implements vscode.TreeDragAndDropContro
     ) {
         const item = sourceItems[0];
 
-        console.log('*** handleDrag', item.contextValue);
+        // console.log('*** handleDrag', item.contextValue);
 
         // --- PINNED FOLDER → REORDER ---
         if (item.contextValue === 'pinnedFolder') {
@@ -56,7 +56,7 @@ export class PinnedDragAndDropController implements vscode.TreeDragAndDropContro
             const sources = value as PinTreeItem[];
 
             if (target.contextValue === 'pinnedFolder' && sources[0].contextValue === 'pinnedFolder') {
-                console.log('*** reorder pinned folders');
+                // console.log('*** reorder pinned folders');
                 this.provider.reorderPinnedFolders(sources[0], target);
                 return;
             }
@@ -64,7 +64,7 @@ export class PinnedDragAndDropController implements vscode.TreeDragAndDropContro
 
         // --- CASE 2: MOVE FILE / SUBFOLDER ---
         if (typeof value === 'string') {
-            console.log('*** move file/subfolder');
+            // console.log('*** move file/subfolder');
 
             const sourceUri = vscode.Uri.parse(value);
 

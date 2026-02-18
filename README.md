@@ -17,9 +17,19 @@ This avoids mixing bookmarks across unrelated projects and keeps your workflow c
 A dedicated sidebar panel that displays your pinned folders with custom labels.  
 Useful when working across multiple projects or folders with identical names (e.g., multiple `src` directories).
 
-### • Drag & Drop Move  
-Move files and folders between pinned folders using drag & drop.  
-Behavior matches the native VS Code Explorer:  
+### • Drag & Drop (reorder + move)  
+Drag & drop supports two behaviors:
+
+- **Reorder pinned folders**  
+  - Drag a pinned folder onto another pinned folder to change their order.
+- **Move files and folders**  
+  - Drag files or subfolders between pinned folders or their subfolders.  
+  - You can drop:
+    - na pinned root folder → súbor sa presunie do daného priečinka  
+    - na subfolder → súbor sa presunie do tohto podpriečinka  
+    - na súbor → súbor sa presunie do rodičovského priečinka cieľového súboru  
+
+Behavior matches the native VS Code Explorer as much as the API allows:
 - drag = **MOVE**  
 - modifier‑key copy is not supported (VS Code API limitation)
 
@@ -36,13 +46,6 @@ Works even when changes happen **outside** VS Code (Finder, Explorer, CLI).
 Search within pinned folders and browse results in a dedicated view.  
 The search engine matches **both files and directories**, making it easy to locate anything inside your pinned structure.
 
-### • Expand All / Collapse All  
-Quickly expand or collapse the entire pinned folder tree using toolbar commands.  
-Useful for large folder structures or when navigating deeply nested directories.
-
-### • Per‑folder Expand / Collapse  
-Each pinned folder can be expanded or collapsed individually using context menu actions.
-
 ### • File & Folder Operations  
 Perform common file operations directly inside the pinned folders view:
 - **Create** file or folder  
@@ -54,7 +57,7 @@ Perform common file operations directly inside the pinned folders view:
 These actions work consistently across both the pinned folders view and search results.
 
 ### • Open in New Window  
-Click to icon in any pinned folder and open it in a new VS Code window.
+Click the icon in any pinned folder and open it in a new VS Code window.
 
 ---
 
@@ -65,8 +68,15 @@ Click to icon in any pinned folder and open it in a new VS Code window.
 
 You can assign a custom name to each pinned folder.
 
+### Reorder Pinned Folders
+- Drag one pinned folder onto another pinned folder  
+- The list order is updated accordingly
+
 ### Move Files and Folders
-- Drag items between pinned folders  
+- Drag files or folders:
+  - between pinned folders  
+  - into subfolders under pinned folders  
+  - onto a file (drop → move to its parent folder)  
 - Operation always performs a **MOVE**
 
 ### Automatic Refresh
@@ -91,8 +101,6 @@ Right‑click a pinned folder → **Open in New Window**
 | `Pin Folders Extended: Refresh` | Manually refresh the view |
 | `Pin Folders Extended: Focus View` | Focus the pinned folders panel |
 | `Pin Folders Extended: Open in New Window` | Open folder in a new VS Code window |
-| `Pin Folders Extended: Expand All` | Expand all pinned folders |
-| `Pin Folders Extended: Collapse All` | Collapse all pinned folders |
 | `Create File/Folder` | Create a new file or directory |
 | `Rename File/Folder` | Rename an existing file or directory |
 | `Copy File/Folder` | Copy a file or directory |
@@ -110,15 +118,13 @@ VS Code does not support `Ctrl/Cmd + C` and `Ctrl/Cmd + V` for custom TreeViews.
 Copy operations must be done through context menu or Explorer.
 
 ### Modifier Keys During Drag & Drop  
-macOS and the VS Code TreeView API do not expose modifier keys (Cmd/Option/Control) during drag operations.  
+The VS Code TreeView API does not expose modifier keys (Cmd/Option/Control) during drag operations.  
 Therefore:
 - drag = MOVE  
 - copy via drag is not supported
 
-This matches the behavior of the native VS Code Explorer on macOS.
-
 ### Search depth
-The search view shows the direct contents of matched folders, but does not currently expand into deeper subfolders.
+The search view shows the direct contents of matched folders, but does not currently expand into deeper subfolders.  
 Recursive search inside nested directories may be added in a future update.
 
 ---

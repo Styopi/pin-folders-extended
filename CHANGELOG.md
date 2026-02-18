@@ -4,3 +4,24 @@ All notable changes to the "pin-folders-extended" extension will be documented i
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.0.5] - 2026-02-18
+### Added
+- Unified drag & drop controller for the entire Pinned Folders view.
+- Support for moving files and subfolders directly into pinned root folders.
+- Support for dropping files onto other files (moves into parent folder).
+- Reorder of pinned folders via drag & drop (pinned → pinned).
+
+### Changed
+- Completely rewritten drag & drop logic for higher reliability and native‑like behavior.
+- Simplified internal architecture: removed old inline drag/drop handlers.
+- Removed legacy expand/collapse logic and related commands.
+- Improved consistency between pinned folders view and search results view.
+
+### Fixed
+- Files could not be dropped into pinned root folders — now fully supported.
+- Dragging pinned folders no longer triggers file‑move logic.
+- Various edge cases when dragging onto files or nested folders.
+
+### Removed
+- Deprecated `handleDrag` logic from the provider.
+- Removed expand/collapse features that were no longer needed.
