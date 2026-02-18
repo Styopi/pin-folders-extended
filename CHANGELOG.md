@@ -25,3 +25,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Removed
 - Deprecated `handleDrag` logic from the provider.
 - Removed expand/collapse features that were no longer needed.
+
+## [1.0.6] - 2026-02-18
+### Added
+- New command: **Reset All Pinned Folders** — clears pinned folders, search cache, collapsible state, watchers, and persistent workspace storage.
+- Added **Reset All Pinned Folders** to the Pinned Folders view menu (⋯).
+
+### Changed
+- Reset logic now fully clears both runtime state and `workspaceState`, ensuring pinned folders do not reappear after restarting VS Code.
+- Improved internal cleanup when resetting: watchers are now properly disposed and re‑initialized.
+
+### Fixed
+- Pinned folders previously reappeared after VS Code restart even after reset — now resolved.
+- Search results and cached state are now consistently cleared when performing a full reset.

@@ -25,9 +25,9 @@ Drag & drop supports two behaviors:
 - **Move files and folders**  
   - Drag files or subfolders between pinned folders or their subfolders.  
   - You can drop:
-    - na pinned root folder → súbor sa presunie do daného priečinka  
-    - na subfolder → súbor sa presunie do tohto podpriečinka  
-    - na súbor → súbor sa presunie do rodičovského priečinka cieľového súboru  
+    - onto a pinned root folder → file is moved into that folder  
+    - onto a subfolder → file is moved into that subfolder  
+    - onto a file → file is moved into the parent folder of the target file  
 
 Behavior matches the native VS Code Explorer as much as the API allows:
 - drag = **MOVE**  
@@ -56,8 +56,13 @@ Perform common file operations directly inside the pinned folders view:
 
 These actions work consistently across both the pinned folders view and search results.
 
+### • Reset All Pinned Folders  
+A command in the view menu (⋯) allows you to **reset the entire pinned folder list**,  
+including all cached state.  
+This completely clears the pinned folders for the current workspace.
+
 ### • Open in New Window  
-Click the icon in any pinned folder and open it in a new VS Code window.
+Right‑click any pinned folder → **Open in New Window**
 
 ---
 
@@ -78,6 +83,15 @@ You can assign a custom name to each pinned folder.
   - into subfolders under pinned folders  
   - onto a file (drop → move to its parent folder)  
 - Operation always performs a **MOVE**
+
+### Reset All Pinned Folders
+- Open the **⋯ menu** in the Pinned Folders view  
+- Select **Reset All Pinned Folders**  
+This clears:
+- pinned folder list  
+- search cache  
+- watchers  
+- collapsible state  
 
 ### Automatic Refresh
 No need to manually refresh.  
@@ -101,6 +115,7 @@ Right‑click a pinned folder → **Open in New Window**
 | `Pin Folders Extended: Refresh` | Manually refresh the view |
 | `Pin Folders Extended: Focus View` | Focus the pinned folders panel |
 | `Pin Folders Extended: Open in New Window` | Open folder in a new VS Code window |
+| `Pin Folders Extended: Reset All Pinned Folders` | Clear all pinned folders and cached state |
 | `Create File/Folder` | Create a new file or directory |
 | `Rename File/Folder` | Rename an existing file or directory |
 | `Copy File/Folder` | Copy a file or directory |

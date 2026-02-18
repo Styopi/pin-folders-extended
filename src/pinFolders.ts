@@ -18,8 +18,6 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 	private pinnedFolders: Array<[vscode.Uri, string]>;
 	private lastSearchQuery: string | null = null
 	private globalState: vscode.TreeItemCollapsibleState = vscode.TreeItemCollapsibleState.Collapsed;
-	private folderStates = new Map<string, vscode.TreeItemCollapsibleState>();
-	private forceDynamicIds = false;
 
 	constructor(
 		workspaceRoot: Array<[string, string]>,
@@ -80,8 +78,7 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 						uri,
 						collapsedState,
 						undefined,
-						item[1],
-						this.forceDynamicIds
+						item[1]
 					);
 				} else {
 					const command = {
@@ -94,8 +91,7 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 						uri,
 						collapsedState,
 						command,
-						item[1] + " (missing)",
-						this.forceDynamicIds
+						item[1] + " (missing)"
 					);
 				}
 			} catch (error) {
@@ -374,6 +370,25 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 		const newPinned = this.pinnedFolders.map(([uri, name]) => [uri.fsPath, name]);
 		vscode.commands.executeCommand('pinned-folders.updateOrder', newPinned);
 	}
+
+	public resetAll() {
+		// Reset pinned folders
+		this.pinnedFolders = [];
+
+		// Reset search state
+		this.lastSearchQuery = null;
+
+		// Reset collapsible state (optional)
+		this.globalState = vscode.TreeItemCollapsibleState.Collapsed;
+
+		// Clear search results provider (if supported)
+		if (typeof this.searchResultsProvider.clear === "function") {
+			this.searchResultsProvider.clear();
+		}
+
+		// Refresh UI
+		this.refresh();
+	}
 }
 
 export class PinTreeItem extends vscode.TreeItem {
@@ -385,7 +400,6 @@ export class PinTreeItem extends vscode.TreeItem {
 		public readonly collapsibleState: vscode.TreeItemCollapsibleState,
 		public readonly command?: vscode.Command,
 		public readonly name?: string,
-		public readonly forceDynamicId: boolean = false,
 		public descriptionText?: string
 	) {
 		var givenName = name ?? path.basename(uri.fsPath);

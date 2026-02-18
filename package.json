@@ -3,7 +3,7 @@
 	"displayName": "Pin Folders Extended",
 	"description": "Enhanced version of Pin Folders with automatic refresh, drag & drop move, and improved UX.",
 	"license": "Apache-2.0",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"publisher": "OneDesign",
 	"repository": {
 		"url": "https://github.com/Styopi/pin-folders-extended.git"
@@ -26,6 +26,10 @@
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
+			{
+				"command": "pinned-folders.resetAll",
+				"title": "Reset All Pinned Folders"
+			},
 			{
 				"command": "pinned-folders.refreshEntry",
 				"title": "Refresh Pinned Folders",
@@ -126,6 +130,11 @@
 					"command": "pinned-folders.addEntry",
 					"when": "view == pinned-folders",
 					"group": "navigation"
+				},
+				{
+					"command": "pinned-folders.resetAll",
+					"when": "view == pinned-folders",
+					"group": "more"
 				}
 			],
 			"explorer/context": [

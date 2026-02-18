@@ -355,6 +355,22 @@ export function activate(context: vscode.ExtensionContext) {
 		searchProvider
 	);
 
+	// Reset Pinned Folders
+	const resetAll = vscode.commands.registerCommand("pinned-folders.resetAll", async () => {
+
+		// 1) Reset persistent storage
+		await context.workspaceState.update(pinFoldersSubKey, []);
+
+		// 2) Reset provider runtime state
+		alwaysTreeItemProvider.updateWorksapaceRoot([]);
+		alwaysTreeItemProvider.resetAll();
+
+		// 3) Reset watchers
+		registerWatchersForPinnedFolders([]);
+
+		vscode.window.showInformationMessage("Pinned folders have been reset.");
+	});
+
 	context.subscriptions.push(
 		refreshEntryCommand,
 		removeEntryCommand,
@@ -368,7 +384,8 @@ export function activate(context: vscode.ExtensionContext) {
 		copyFileCommand,
 		moveFileCommand,
 		deleteFileCommand,
-		searchView
+		searchView,
+		resetAll
 	);
 }
 
