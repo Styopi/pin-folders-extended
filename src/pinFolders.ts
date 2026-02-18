@@ -4,10 +4,10 @@ import { SearchResultItem } from './searchResultItem';
 import { SearchResultsProvider } from './searchResultsProvider';
 
 type EnsureNodeFn = (
-	fsPath: string, 
-	label: string, 
-	isDirectory: boolean, 
-	parent?: SearchResultItem, 
+	fsPath: string,
+	label: string,
+	isDirectory: boolean,
+	parent?: SearchResultItem,
 	collapsible?: vscode.TreeItemCollapsibleState
 ) => SearchResultItem;
 
@@ -29,7 +29,7 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 	}
 
 	getParent(element: PinTreeItem): PinTreeItem | null {
-		return null; 
+		return null;
 	}
 
 	public updateWorksapaceRoot(workspaceRoot: Array<[string, string]>) {
@@ -47,32 +47,6 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 
 	getTreeItem(element: PinTreeItem): vscode.TreeItem {
 		return element;
-	}
-
-	setExpanded() {
-		this.globalState = vscode.TreeItemCollapsibleState.Expanded;
-		this.folderStates.clear();
-		this.forceDynamicIds = true;
-		this.refresh();
-	}
-
-	setCollapsed() {
-		this.globalState = vscode.TreeItemCollapsibleState.Collapsed;
-		this.folderStates.clear();
-		this.forceDynamicIds = true;
-		this.refresh();
-	}
-
-	setFolderExpanded(uri: vscode.Uri) {
-		this.folderStates.set(uri.fsPath, vscode.TreeItemCollapsibleState.Expanded);
-		this.forceDynamicIds = true;
-		this.refresh();
-	}
-
-	setFolderCollapsed(uri: vscode.Uri) {
-		this.folderStates.set(uri.fsPath, vscode.TreeItemCollapsibleState.Collapsed);
-		this.forceDynamicIds = true;
-		this.refresh();
 	}
 
 	getState(): vscode.TreeItemCollapsibleState {
@@ -98,15 +72,13 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 			try {
 				const uri = item[0];
 				const stat = await vscode.workspace.fs.stat(uri);
-
-				const colapsedFolder = this.folderStates.get(uri.fsPath);
-				const colapsedState = colapsedFolder ?? this.globalState ?? vscode.TreeItemCollapsibleState.Collapsed;
+				const collapsedState = vscode.TreeItemCollapsibleState.Collapsed;
 
 				if ((stat.type & vscode.FileType.Directory) === vscode.FileType.Directory) {
 					return new PinTreeItem(
 						true,
 						uri,
-						colapsedState,
+						collapsedState,
 						undefined,
 						item[1],
 						this.forceDynamicIds
@@ -120,7 +92,7 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 					return new PinTreeItem(
 						false,
 						uri,
-						colapsedState,
+						collapsedState,
 						command,
 						item[1] + " (missing)",
 						this.forceDynamicIds
@@ -148,15 +120,13 @@ export class PinFoldersTreeDataProvider implements vscode.TreeDataProvider<PinTr
 		let items = entries.map(([name, type]) => {
 			const isDirectory = (type & vscode.FileType.Directory) === vscode.FileType.Directory;
 			const subUri = vscode.Uri.joinPath(element.uri, name);
-
-			const colapsedFolder = this.folderStates.get(element.uri.fsPath);
-			const colapsedState = colapsedFolder ?? this.globalState ?? vscode.TreeItemCollapsibleState.Collapsed;
+			const collapsedState = vscode.TreeItemCollapsibleState.Collapsed;
 
 			if (isDirectory) {
 				return new PinTreeItem(
 					true,
 					subUri,
-					colapsedState
+					collapsedState
 				);
 			} else {
 				const command = {
@@ -458,9 +428,7 @@ export class PinTreeItem extends vscode.TreeItem {
 			this.draggable = false;
 		}
 
-		this.id = forceDynamicId
-			? `${uri.fsPath}_${Date.now()}_${Math.random()}`
-			: uri.fsPath;
+		this.id = uri.fsPath;
 	}
 }
 

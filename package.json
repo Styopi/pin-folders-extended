@@ -39,23 +39,6 @@
 				"category": "Pinned Folders"
 			},
 			{
-				"command": "pinned-folders.expandGlobal",
-				"title": "Expand All",
-				"category": "Pinned Folders",
-				"icon": "$(diff-added)"
-			},
-			{
-				"command": "pinned-folders.collapseGlobal",
-				"title": "Collapse All",
-				"category": "Pinned Folders",
-				"icon": "$(diff-removed)"
-			},
-			{
-				"command": "pinned-folders.addEntryFromExplorer",
-				"title": "Add to Pinned/Bookmarked Folders",
-				"category": "Pinned Folders"
-			},
-			{
 				"command": "pinned-folders.renameEntry",
 				"title": "Rename Bookmark/Entry in Pinned Folders",
 				"category": "Pinned Folders",
@@ -72,18 +55,6 @@
 				"title": "Open Pinned Folder in Vscode Desktop",
 				"category": "Pinned Folders",
 				"icon": "$(file-code)"
-			},
-			{
-				"command": "pinned-folders.expandFolder",
-				"title": "Expand Project",
-				"category": "Pinned Folders",
-				"icon": "$(diff-added)"
-			},
-			{
-				"command": "pinned-folders.collapseFolder",
-				"title": "Collapse Project",
-				"category": "Pinned Folders",
-				"icon": "$(diff-removed)"
 			},
 			{
 				"command": "pinned-folders.createEntry",
@@ -150,16 +121,6 @@
 					"command": "pinned-folders.addEntry",
 					"when": "view == pinned-folders",
 					"group": "navigation"
-				},
-				{
-					"command": "pinned-folders.collapseGlobal",
-					"when": "view == pinned-folders",
-					"group": "navigation@2"
-				},
-				{
-					"command": "pinned-folders.expandGlobal",
-					"when": "view == pinned-folders",
-					"group": "navigation@1"
 				}
 			],
 			"explorer/context": [
@@ -184,16 +145,6 @@
 					"command": "pinned-folders.openInNewWindow",
 					"when": "view == pinned-folders && viewItem == pinnedFolder",
 					"group": "inline"
-				},
-				{
-					"command": "pinned-folders.collapseFolder",
-					"when": "view == pinned-folders && viewItem == pinnedFolder",
-					"group": "inline@2"
-				},
-				{
-					"command": "pinned-folders.expandFolder",
-					"when": "view == pinned-folders && viewItem == pinnedFolder",
-					"group": "inline@1"
 				},
 				{
 					"command": "pinned-folders.createEntry",

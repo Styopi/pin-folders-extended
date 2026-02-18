@@ -395,36 +395,6 @@ export function activate(context: vscode.ExtensionContext) {
 		searchProvider
 	);
 
-	// --- Expand / Collapse Folders ---
-	const expandGlobalCommand = vscode.commands.registerCommand(
-		"pinned-folders.expandGlobal",
-		async () => {
-			alwaysTreeItemProvider.setExpanded();
-		}
-	);
-
-	const collapseGlobalCommand = vscode.commands.registerCommand(
-		"pinned-folders.collapseGlobal",
-		async () => {
-			alwaysTreeItemProvider.setCollapsed();
-		}
-	);
-
-	const expandFolderCommand = vscode.commands.registerCommand(
-		"pinned-folders.expandFolder",
-		async (item: PinTreeItem) => {
-			alwaysTreeItemProvider.setFolderExpanded(item.uri);
-		}
-	);
-
-	const collapseFolderCommand = vscode.commands.registerCommand(
-		"pinned-folders.collapseFolder",
-		async (item: PinTreeItem) => {
-			alwaysTreeItemProvider.setFolderCollapsed(item.uri);
-		}
-	);
-
-
 	context.subscriptions.push(
 		refreshEntryCommand,
 		removeEntryCommand,
@@ -432,10 +402,6 @@ export function activate(context: vscode.ExtensionContext) {
 		renameEntryCommand,
 		addEntryFromExplorer,
 		openInNewWindowCommand,
-		expandGlobalCommand,
-		collapseGlobalCommand,
-		expandFolderCommand,
-		collapseFolderCommand,
 		updateOrderCommand,
 		createEntryCommand,
 		renameFileCommand,
